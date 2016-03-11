@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<deployment-plan xmlns="http://xmlns.oracle.com/weblogic/deployment-plan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.oracle.com/weblogic/deployment-plan http://xmlns.oracle.com/weblogic/deployment-plan/1.0/deployment-plan.xsd">
+    <description>Setting the BlacklistService URL per partition</description>
+    <application-name>RatingService</application-name>
+    <variable-definition>
+        <variable>
+            <name>BlacklistServiceURL</name>
+            <value>http://localhost:7001/blacklist-service/BlacklistService-1.0-SNAPSHOT/resources/blacklist/{customerId}</value>
+        </variable>
+        <variable>
+            <name>FinancialRecordsServiceURL</name>
+            <value>http://localhost:7001/records-service/FinancialRecordsService-1.0-SNAPSHOT/resources/records/{customerId}</value>
+        </variable>
+    </variable-definition>
+    <module-override>
+        <module-name>RatingService-1.0-SNAPSHOT.war</module-name>
+        <module-type>war</module-type>
+        <module-descriptor external="false">
+            <root-element>ejb-jar</root-element>
+            <uri>WEB-INF/ejb-jar.xml</uri>
+            <variable-assignment>
+                <name>BlacklistServiceURL</name>
+                <xpath>
+                    /ejb-jar/enterprise-beans/session/[ejb-name="BlacklistServiceProxy"]/env-entry/[env-entry-name="blacklistServiceURL"]/env-entry-value
+                </xpath>
+                <operation>replace</operation>
+            </variable-assignment>
+            <variable-assignment>
+                <name>FinancialRecordsServiceURL</name>
+                <xpath>
+                    /ejb-jar/enterprise-beans/session/[ejb-name="FinancialRecordsServiceProxy"]/env-entry/[env-entry-name="recordsServiceURL"]/env-entry-value
+                </xpath>
+                <operation>replace</operation>
+            </variable-assignment>
+        </module-descriptor>
+    </module-override>
+</deployment-plan>

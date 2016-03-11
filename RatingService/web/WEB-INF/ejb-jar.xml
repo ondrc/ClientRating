@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+         version="3.1">
+    
+    <enterprise-beans>
+        <session>
+            <ejb-name>BlacklistServiceProxy</ejb-name>
+            <env-entry>
+                <env-entry-name>blacklistServiceURL</env-entry-name>
+                <env-entry-type>java.lang.String</env-entry-type>
+                <env-entry-value>http://localhost:7001/BlacklistService-1.0-SNAPSHOT/resources/blacklist/{customerId}</env-entry-value>
+            </env-entry>
+        </session>
+        <session>
+            <ejb-name>FinancialRecordsServiceProxy</ejb-name>
+            <env-entry>
+                <env-entry-name>recordsServiceURL</env-entry-name>
+                <env-entry-type>java.lang.String</env-entry-type>
+                <env-entry-value>http://localhost:7001/FinancialRecordsService-1.0-SNAPSHOT/resources/records/{customerId}</env-entry-value>
+            </env-entry>
+        </session>
+    </enterprise-beans>
+    
+</ejb-jar>
