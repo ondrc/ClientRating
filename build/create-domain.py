@@ -1,6 +1,6 @@
 admin_port = int(os.environ.get("ADMIN_PORT", "7001"))
 admin_pass = os.environ.get("ADMIN_PASSWORD", "welcome1")
-wl_home = os.environ.get("WL_HOME", "/opt/wls/Oracle_Home/wlserver")
+wl_home = os.environ.get("WL_HOME", "/opt/wls/home/wls/wlserver")
 domain_home = os.environ.get("DOMAIN_HOME", "/opt/wls")
 domain_name = os.environ.get("DOMAIN_NAME", "domain")
 

@@ -15,6 +15,7 @@
         <module>BlacklistService</module>
         <module>FinancialRecordsService</module>
         <module>FinancialRecordsServiceStub</module>
+        <module>HttpProxy</module>
     </modules>
 
     <dependencies>
