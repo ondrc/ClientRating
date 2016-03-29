@@ -1,5 +1,22 @@
 #!/bin/sh
 
+ORACLE_HOME="${ORACLE_HOME:=/opt/wls/Oracle_Home}"
+WL_HOME="${WL_HOME:=$ORACLE_HOME/wlserver}"
+DOMAIN_HOME="${DOMAIN_HOME:=/opt/wls}"
+DOMAIN_NAME="${DOMAIN_NAME:=domain}"
+
+echo ''
+echo '   ##########################################################   '
+echo '   ----------- Running with following environment------------   '
+echo '   ##########################################################   '
+echo ''
+echo ''
+echo 'ORACLE_HOME='$ORACLE_HOME
+echo 'WL_HOME='$WL_HOME
+echo 'DOMAIN_HOME='$DOMAIN_HOME
+echo 'DOMAIN_NAME='$DOMAIN_NAME
+echo ''
+
 WLST=$ORACLE_HOME/oracle_common/common/bin/wlst.sh
 
 cd build/
@@ -16,7 +33,7 @@ echo '   ##########################################################   '
 echo '   -----------------   Performing cleanup   -----------------   '
 echo '   ##########################################################   '
 echo ''
-rm -r /opt/wls/domain
+rm -r $DOMAIN_HOME/$DOMAIN_NAME
 
 echo ''
 echo '   ##########################################################   '

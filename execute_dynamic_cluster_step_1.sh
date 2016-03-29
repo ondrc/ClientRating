@@ -26,7 +26,7 @@ echo '   ##########################################################   '
 echo '   ------------------   Building project   ------------------   '
 echo '   ##########################################################   '
 echo ''
-bash ./build.sh
+bash ./buildForCluster.sh
 
 echo ''
 echo '   ##########################################################   '
@@ -51,37 +51,15 @@ $WLST start-domain.py
 
 echo ''
 echo '   ##########################################################   '
-echo '   ----------------   Creating partitions   -----------------   '
+echo '   -----------------   Creating cluster   -------------------   '
 echo '   ##########################################################   '
 echo ''
-$WLST create-partitions.py
+$WLST create-cluster.py
 
 echo ''
 echo '   ##########################################################   '
-echo '   ----------------   Creating data source   ----------------   '
+echo '   -Please manually start up managed servers for the cluster-   '
 echo '   ##########################################################   '
 echo ''
-$WLST create-datasources.py
-
-echo ''
-echo '   ##########################################################   '
-echo '   ----------------  Deploying application   ----------------   '
-echo '   ##########################################################   '
-echo ''
-$WLST deploy.py
-
-echo ''
-echo '   ##########################################################   '
-echo '   ----------------  Sending test request   -----------------   '
-echo '   ##########################################################   '
-echo ''
-curl http://localhost:7001/customer-service/CustomerService-1.0-SNAPSHOT/resources/customers
-
-echo ''
-echo '   ##########################################################   '
-echo '   --------------   Stopping WebLogic server   --------------   '
-echo '   ##########################################################   '
-echo ''
-$WLST stop-domain.py
 
 cd ..
