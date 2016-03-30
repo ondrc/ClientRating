@@ -23,14 +23,4 @@ The following variables can be used to control the setup:
 Executing bash script **execute_single_server.sh** will build the example, create and configure the WebLogic domain, deploy the example into partitions, display the simple text output of CustomerService and shut down the domain. 
 
 ## Executing clustered domain scenario
-Executing bash script **execute_dynamic_cluster_step_1.sh** will build the example, create the Weblogic domain, configure the dynamic cluster and start the Admin server.
-
-The following manual steps will need to be performed in order to start up the cluster servers:
-
-- $DOMAIN_HOME/$DOMAIN_NAME/bin/startManagedWeblogic.sh DynamicCluster-0-LoadBalancer
-- $DOMAIN_HOME/$DOMAIN_NAME/bin/startManagedWeblogic.sh DynamicCluster-0-Server-1
-- $DOMAIN_HOME/$DOMAIN_NAME/bin/startManagedWeblogic.sh DynamicCluster-0-Server-2
-
-In every case the Admin server user and password will need to be provided (default: weblogic/welcome1)
-
-Finally, executing bash script **execute_dynamic_cluster_step_2.sh** will deploy the example, display the simple text output of CustomerService and shut down the domain.
+Executing bash script **execute_dynamic_cluster** will build the example, create the Weblogic domain, configure the dynamic cluster, start the domain, deploy the example, display the simple text output of CustomerService and shut down the domain.

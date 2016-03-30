@@ -5,7 +5,7 @@ startEdit()
 # Configure machine
 machine=cmo.createUnixMachine('DynamicCluster-0-Machine')
 nodeManager=machine.getNodeManager()
-nodeManager.setNMType('Plain')
+nodeManager.setNMType('SSL')
 nodeManager.setListenAddress('localhost')
 nodeManager.setListenPort(5556)
 nodeManager.setDebugEnabled(false)
@@ -29,6 +29,7 @@ dynServers.setCalculatedMachineNames(true)
 # Create load balancer server
 loadBalancer=cmo.createServer('DynamicCluster-0-LoadBalancer')
 loadBalancer.setListenPort(7100)
+loadBalancer.setMachine(machine)
 
 # Target VirtualTarget-3 to cluster
 cd('VirtualTargets/VirtualTarget-3')
