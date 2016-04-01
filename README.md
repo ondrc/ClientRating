@@ -7,7 +7,7 @@ The application is composed of four services. Customer service is the service in
 
 RatingService initially performs a REST call to BlacklistService to verify that the customer has not been blacklisted. The latter performs a JPA query to its own database and returns the status for the customers who are stored there (a subset of the customers requested). Then a call to FinancialRecordsService is performed in order to retrieve the customer's financial history rating from a public authority. A stub is used in the example application to represent this remote call. 
 
-Configuration of the REST endpoints for each service is performed using WebLogic server's Deployment Plans. This feature will be detrimental in implementing the second and third scenarios, which are migrating one service to a new dynamic cluster for the purpose of scaling. For that purpose we are also using HttpClusterServlet as a load balancer for the second scenario and [Oracle Traffic Director](http://www.oracle.com/technetwork/middleware/webtier/downloads/traffic-director-1373931.html) for the third scenario. It should be pointed out that due to the nature of OTD it may not be compatible with all platforms.
+Configuration of the REST endpoints for each service is performed using WebLogic server's Deployment Plans. This feature will be detrimental in implementing the second and third scenarios, which are migrating one service to a new dynamic cluster for the purpose of scaling. For that purpose we are also using HttpClusterServlet as a load balancer for the second scenario and Oracle Traffic Director for the third scenario.
 
 ## Requirements
 The application can be built and deployed to a single WebLogic domain using domain partitioning for services separation. Prerequisites for running this example is having a Unix based operating system with [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [Maven](https://maven.apache.org/download.cgi?Preferred=ftp://mirror.reverse.net/pub/apache/) installed, and a [WebLogic 12.2.1 Fusion Middleware Infrastructure](http://www.oracle.com/technetwork/middleware/weblogic/downloads/wls-main-097127.html) installation. 
@@ -18,6 +18,10 @@ The following variables can be used to control the setup:
 - **WL_HOME** (default: $ORACLE_HOME/wlserver)
 - **DOMAIN_HOME** (default: /opt/wls)
 - **DOMAIN_NAME** (default: domain)
+
+Running the third scenario will also require a collocated installation of [Oracle Traffic Director](http://www.oracle.com/technetwork/middleware/webtier/downloads/traffic-director-1373931.html). 
+
+It should be pointed out that due to the nature of OTD it may not be compatible with all platforms.
 
 ## Executing simple scenario
 ![simple scenario](img/microservices-scenario-1.jpg)
