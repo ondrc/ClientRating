@@ -20,7 +20,11 @@ The following variables can be used to control the setup:
 - **DOMAIN_NAME** (default: domain)
 
 ## Executing simple scenario
+![simple scenario](img/microservices-scenario-1.jpg)
+
 Executing bash script **execute_single_server.sh** will build the example, create and configure the WebLogic domain, deploy the example into partitions, display the simple text output of CustomerService and shut down the domain. 
 
 ## Executing clustered domain scenario
+![clustered scenario](img/microservices-scenario-2.jpg)
+
 Executing bash script **execute_dynamic_cluster** will build the example, create the Weblogic domain, configure the dynamic cluster, start the domain, deploy the example, display the simple text output of CustomerService and shut down the domain.
