@@ -1,4 +1,21 @@
 #!/bin/sh
+# Use -w | --wait flag to pause between setup and execution
+
+# Read arguments
+while :; do
+    case $1 in
+        -w|--wait)
+        WAIT="true"
+        break
+        ;;
+    esac
+
+    shift
+done
+
+function pause() {
+    read -p "$*"
+}
 
 ORACLE_HOME="${ORACLE_HOME:=/opt/wls/Oracle_Home}"
 WL_HOME="${WL_HOME:=$ORACLE_HOME/wlserver}"
@@ -16,6 +33,12 @@ echo 'WL_HOME='$WL_HOME
 echo 'DOMAIN_HOME='$DOMAIN_HOME
 echo 'DOMAIN_NAME='$DOMAIN_NAME
 echo ''
+
+if [ -n "$WAIT" ];
+then
+    echo 'Will wait for confirmation after setup'
+    echo ''
+fi
 
 WLST=$ORACLE_HOME/oracle_common/common/bin/wlst.sh
 
@@ -84,6 +107,11 @@ echo '   ----------------  Deploying application   ----------------   '
 echo '   ##########################################################   '
 echo ''
 $WLST deployWithClusterAndOTD.py
+
+if [ -n "$WAIT" ]
+then
+    pause 'Press [ENTER] to continue'
+fi
 
 echo ''
 echo '   ##########################################################   '
