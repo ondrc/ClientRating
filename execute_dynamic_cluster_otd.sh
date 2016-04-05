@@ -2,15 +2,13 @@
 # Use -w | --wait flag to pause between setup and execution
 
 # Read arguments
-while :; do
-    case $1 in
+for key in "$@"
+do
+    case $key in
         -w|--wait)
         WAIT="true"
-        break
         ;;
     esac
-
-    shift
 done
 
 function pause() {
