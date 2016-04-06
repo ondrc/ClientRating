@@ -28,24 +28,28 @@ create('VirtualTarget-0', 'VirtualTarget')
 cd('VirtualTargets/VirtualTarget-0')
 cmo.setUriPrefix('/rating-service')
 cmo.setTargets([adminServer])
+cmo.setPortOffset(0)
 
 cd('/')
 create('VirtualTarget-1', 'VirtualTarget')
 cd('VirtualTargets/VirtualTarget-1')
 cmo.setUriPrefix('/customer-service')
 cmo.setTargets([adminServer])
+cmo.setPortOffset(0)
 
 cd('/')
 create('VirtualTarget-2', 'VirtualTarget')
 cd('VirtualTargets/VirtualTarget-2')
 cmo.setUriPrefix('/blacklist-service')
 cmo.setTargets([adminServer])
+cmo.setPortOffset(0)
 
 cd('/')
 create('VirtualTarget-3', 'VirtualTarget')
 cd('VirtualTargets/VirtualTarget-3')
 cmo.setUriPrefix('/records-service')
 cmo.setTargets([adminServer])
+cmo.setPortOffset(0)
 
 
 # Create domain
