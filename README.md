@@ -7,7 +7,7 @@ The application is composed of four services. Customer service is the service in
 
 RatingService initially performs a REST call to BlacklistService to verify that the customer has not been blacklisted. The latter performs a JPA query to its own database and returns the status for the customers who are stored there (a subset of the customers requested). Then a call to FinancialRecordsService is performed in order to retrieve the customer's financial history rating from a public authority. A stub is used in the example application to represent this remote call. 
 
-Configuration of the REST endpoints for each service is performed using WebLogic server's Deployment Plans. This feature will be detrimental in implementing the second and third scenarios, which are migrating one service to a new dynamic cluster for the purpose of scaling. For that purpose we are also using HttpClusterServlet as a load balancer for the second scenario and Oracle Traffic Director for the third scenario.
+Configuration of the REST endpoints for each service is performed using WebLogic server's Deployment Plans. This feature will be detrimental in implementing the more complex scenarios. The second and third scenarios are about migrating one service to a new dynamic cluster for the purpose of scaling. For that purpose we are also using HttpClusterServlet as a load balancer for the second scenario and Oracle Traffic Director for the third scenario. Fourth scenario demonstrates the ease of migrating the domain partitions to another domain. 
 
 ## Requirements
 The application can be built and deployed to a single WebLogic domain using domain partitioning for services separation. Prerequisites for running this example is having a Unix based operating system with [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [Maven](https://maven.apache.org/download.cgi?Preferred=ftp://mirror.reverse.net/pub/apache/) installed, and a [WebLogic 12.2.1 Fusion Middleware Infrastructure](http://www.oracle.com/technetwork/middleware/weblogic/downloads/wls-main-097127.html) installation. 
@@ -37,3 +37,8 @@ Executing bash script **execute_dynamic_cluster.sh** will build the example, cre
 ![clustered scenario with OTD](img/microservices-scenario-3.jpg)
 
 Executing bash script **execute_dynamic_cluster_otd.sh** will build the example, create the Weblogic domain, configure the dynamic cluster and OTD instance, start the domain, deploy the example, display the simple text output of CustomerService and shut down the domain.
+
+## Executing simple scenario with partition migration
+![partition migration](img/microservices-scenario-4.jpg)
+
+Executing bash script **execute_single_server_t2p.sh** will build the example, create and configure two WebLogic domains, deploy the example into partitions to the test domain, display the simple text output of CustomerService on both domains (production domain will fail), export test domain partitions and import them to the production domain, display the output of CustomerService on production domain and finally shut down the domain.
