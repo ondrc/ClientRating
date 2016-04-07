@@ -50,9 +50,9 @@ cmo.lookupDomainPartitionRuntime('Partition-3').getPartitionLifeCycleRuntime().s
 edit()
 startEdit()
 
-redeploy(appName='RatingService', planPath='../build/RatingServicePlanProd.xml', partition='Partition-0')
-redeploy(appName='CustomerService', planPath='../build/CustomerServicePlanProd.xml', partition='Partition-1')
-redeploy(appName='FinancialRecordsService', planPath='../build/FinancialRecordsServicePlanProd.xml', partition='Partition-3')
+redeploy(appName='RatingService', planPath='../build/plans/RatingServicePlanProd.xml', partition='Partition-0')
+redeploy(appName='CustomerService', planPath='../build/plans/CustomerServicePlanProd.xml', partition='Partition-1')
+redeploy(appName='FinancialRecordsService', planPath='../build/plans/FinancialRecordsServicePlanProd.xml', partition='Partition-3')
 # Redeploy to recreate database
 redeploy(appName='BlacklistService', partition='Partition-2')
 
