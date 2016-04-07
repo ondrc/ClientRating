@@ -76,6 +76,7 @@ echo '   ##########################################################   '
 echo '   --------------   Starting WebLogic server   --------------   '
 echo '   ##########################################################   '
 echo ''
+$DOMAIN_HOME/$DOMAIN_NAME/bin/startWebLogic.sh >> /dev/null &
 $WLST start-domains-t2p.py
 
 echo ''
@@ -87,13 +88,6 @@ $WLST create-partitions.py
 
 echo ''
 echo '   ##########################################################   '
-echo '   ----------   Creating production partitions   ------------   '
-echo '   ##########################################################   '
-echo ''
-$WLST create-prod-partitions.py
-
-echo ''
-echo '   ##########################################################   '
 echo '   ---------------   Creating data sources   ----------------   '
 echo '   ##########################################################   '
 echo ''
@@ -101,24 +95,10 @@ $WLST create-datasources.py
 
 echo ''
 echo '   ##########################################################   '
-echo '   ----------   Creating production data sources   ----------   '
-echo '   ##########################################################   '
-echo ''
-$WLST create-prod-datasources.py
-
-echo ''
-echo '   ##########################################################   '
 echo '   ----------------  Deploying application   ----------------   '
 echo '   ##########################################################   '
 echo ''
 $WLST deploy.py
-
-echo ''
-echo '   ##########################################################   '
-echo '   ---------  Deploying application to production   ---------   '
-echo '   ##########################################################   '
-echo ''
-$WLST deploy-prod.py
 
 if [ -n "$WAIT" ]
 then
