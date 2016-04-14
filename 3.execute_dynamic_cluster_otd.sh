@@ -35,7 +35,6 @@ echo ''
 if [ -n "$WAIT" ];
 then
     echo 'Will wait for confirmation after setup'
-    echo ''
 fi
 
 WLST=$ORACLE_HOME/oracle_common/common/bin/wlst.sh
@@ -47,7 +46,7 @@ echo '   ##########################################################   '
 echo '   ------------------   Building project   ------------------   '
 echo '   ##########################################################   '
 echo ''
-bash ./buildForCluster.sh
+bash ./build.sh
 
 echo ''
 echo '   ##########################################################   '
@@ -55,34 +54,35 @@ echo '   -----------------   Performing cleanup   -----------------   '
 echo '   ##########################################################   '
 echo ''
 rm -r $DOMAIN_HOME/$DOMAIN_NAME
+rm -r $DOMAIN_HOME/applications
 
 echo ''
 echo '   ##########################################################   '
 echo '   ------------------   Creating domain   -------------------   '
 echo '   ##########################################################   '
 echo ''
-$WLST create-domain.py
+$WLST create-domain-otd.py
 
 echo ''
 echo '   ##########################################################   '
 echo '   --------------   Starting WebLogic server   --------------   '
 echo '   ##########################################################   '
 echo ''
-$WLST start-domain.py
+$WLST start-domain-otd.py
 
 echo ''
 echo '   ##########################################################   '
 echo '   -----------------   Creating cluster   -------------------   '
 echo '   ##########################################################   '
 echo ''
-$WLST create-cluster.py
+$WLST create-cluster-otd.py
 
 echo ''
 echo '   ##########################################################   '
 echo '   -----------------   Starting cluster   -------------------   '
 echo '   ##########################################################   '
 echo ''
-$WLST start-cluster.py
+$WLST start-cluster-otd.py
 
 echo ''
 echo '   ##########################################################   '
@@ -103,7 +103,7 @@ echo '   ##########################################################   '
 echo '   ----------------  Deploying application   ----------------   '
 echo '   ##########################################################   '
 echo ''
-$WLST deployWithCluster.py
+$WLST deployWithClusterAndOTD.py
 
 if [ -n "$WAIT" ]
 then
@@ -122,6 +122,6 @@ echo '   ##########################################################   '
 echo '   --------------   Stopping WebLogic server   --------------   '
 echo '   ##########################################################   '
 echo ''
-$WLST stop-clustered-domain.py
+$WLST stop-clustered-domain-otd.py
 
 cd ..

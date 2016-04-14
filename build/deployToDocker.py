@@ -1,0 +1,10 @@
+connect('weblogic', 'welcome1', 't3://localhost:7001')
+
+edit()
+startEdit()
+deploy(appName='RatingService', path='../RatingService/target/RatingService-1.0-SNAPSHOT.war', resourceGroup='ResourceGroup-0', partition='Partition-0', planPath='../build/plans/RatingServicePlan.xml', upload='true')
+deploy(appName='CustomerService', path='../CustomerService/target/CustomerService-1.0-SNAPSHOT.war', resourceGroup='ResourceGroup-1', partition='Partition-1', planPath='../build/plans/CustomerServicePlan.xml', upload='true')
+deploy(appName='BlacklistService', path='../BlacklistService/target/BlacklistService-1.0-SNAPSHOT.war', resourceGroup='ResourceGroup-2', partition='Partition-2', upload='true')
+deploy(appName='FinancialRecordsService', path='../FinancialRecordsService/target/FinancialRecordsService-1.0-SNAPSHOT.war', resourceGroup='ResourceGroup-3', partition='Partition-3', planPath='../build/plans/FinancialRecordsServicePlan.xml', upload='true')
+deploy(appName='FinancialRecordsServiceStub', path='../FinancialRecordsServiceStub/target/FinancialRecordsServiceStub-1.0-SNAPSHOT.war', resourceGroup='ResourceGroup-3', partition='Partition-3', upload='true')
+activate()

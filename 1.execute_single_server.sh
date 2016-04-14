@@ -35,7 +35,6 @@ echo ''
 if [ -n "$WAIT" ];
 then
     echo 'Will wait for confirmation after setup'
-    echo ''
 fi
 
 WLST=$ORACLE_HOME/oracle_common/common/bin/wlst.sh

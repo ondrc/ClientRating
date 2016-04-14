@@ -35,7 +35,6 @@ echo ''
 if [ -n "$WAIT" ];
 then
     echo 'Will wait for confirmation after setup'
-    echo ''
 fi
 
 WLST=$ORACLE_HOME/oracle_common/common/bin/wlst.sh
@@ -47,7 +46,7 @@ echo '   ##########################################################   '
 echo '   ------------------   Building project   ------------------   '
 echo '   ##########################################################   '
 echo ''
-bash ./build.sh
+bash ./buildForCluster.sh
 
 echo ''
 echo '   ##########################################################   '
@@ -55,29 +54,34 @@ echo '   -----------------   Performing cleanup   -----------------   '
 echo '   ##########################################################   '
 echo ''
 rm -r $DOMAIN_HOME/$DOMAIN_NAME
-rm -r $DOMAIN_HOME/prod/$DOMAIN_NAME
 
 echo ''
 echo '   ##########################################################   '
-echo '   ----------------   Creating test domain   ----------------   '
+echo '   ------------------   Creating domain   -------------------   '
 echo '   ##########################################################   '
 echo ''
 $WLST create-domain.py
 
 echo ''
 echo '   ##########################################################   '
-echo '   -------------   Creating production domain   -------------   '
-echo '   ##########################################################   '
-echo ''
-$WLST create-prod-domain.py
-
-echo ''
-echo '   ##########################################################   '
 echo '   --------------   Starting WebLogic server   --------------   '
 echo '   ##########################################################   '
 echo ''
-$DOMAIN_HOME/$DOMAIN_NAME/bin/startWebLogic.sh >> /dev/null &
-$WLST start-domains-t2p.py
+$WLST start-domain.py
+
+echo ''
+echo '   ##########################################################   '
+echo '   -----------------   Creating cluster   -------------------   '
+echo '   ##########################################################   '
+echo ''
+$WLST create-cluster.py
+
+echo ''
+echo '   ##########################################################   '
+echo '   -----------------   Starting cluster   -------------------   '
+echo '   ##########################################################   '
+echo ''
+$WLST start-cluster.py
 
 echo ''
 echo '   ##########################################################   '
@@ -88,7 +92,7 @@ $WLST create-partitions.py
 
 echo ''
 echo '   ##########################################################   '
-echo '   ---------------   Creating data sources   ----------------   '
+echo '   ----------------   Creating data source   ----------------   '
 echo '   ##########################################################   '
 echo ''
 $WLST create-datasources.py
@@ -98,7 +102,7 @@ echo '   ##########################################################   '
 echo '   ----------------  Deploying application   ----------------   '
 echo '   ##########################################################   '
 echo ''
-$WLST deploy.py
+$WLST deployWithCluster.py
 
 if [ -n "$WAIT" ]
 then
@@ -114,35 +118,9 @@ curl http://localhost:7001/customer-service/CustomerService-1.0-SNAPSHOT/resourc
 
 echo ''
 echo '   ##########################################################   '
-echo '   ----------------  Sending prod request   -----------------   '
+echo '   --------------   Stopping WebLogic server   --------------   '
 echo '   ##########################################################   '
 echo ''
-curl http://localhost:8001/customer-service/CustomerService-1.0-SNAPSHOT/resources/customers
-
-echo ''
-echo '   ##########################################################   '
-echo '   --------------  Transferring to production   -------------   '
-echo '   ##########################################################   '
-echo ''
-$WLST transfer-partitions.py
-
-if [ -n "$WAIT" ]
-then
-    pause 'Press [ENTER] to continue'
-fi
-
-echo ''
-echo '   ##########################################################   '
-echo '   ----------------  Sending prod request   -----------------   '
-echo '   ##########################################################   '
-echo ''
-curl http://localhost:8001/customer-service/CustomerService-1.0-SNAPSHOT/resources/customers
-
-echo ''
-echo '   ##########################################################   '
-echo '   ------------------   Stopping domains  -------------------   '
-echo '   ##########################################################   '
-echo ''
-$WLST stop-domains-t2p.py
+$WLST stop-clustered-domain.py
 
 cd ..
